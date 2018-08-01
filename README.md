@@ -20,6 +20,15 @@ To use the Recaptcha in a front-end [User Registration](https://craftcms.com/doc
 
 ...and assuming it passes Recaptcha validation, the user registration will be passed along to `users/saveUser`
 
+### Contact Form plugin
+To use the Recaptcha in a front-end [Contact](https://github.com/craftcms/contact-form) form, simply do this:
+
+    <form method="post" accept-charset="UTF-8" >
+        {{ getCsrfInput() }}
+        <input type="hidden" name="action" value="recaptcha/service/contactFormSendMessage">
+
+...and assuming it passes Recaptcha validation, the contact form will be passed along to `contactForm/sendMessage` if Craft 2 and `contact-form/send` if Craft 3.
+
 ### Verification
 To verify a user's input, call the plugin's verify service from your own plugin:
 

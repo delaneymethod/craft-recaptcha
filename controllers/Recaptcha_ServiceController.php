@@ -32,4 +32,28 @@ class Recaptcha_ServiceController extends BaseController
             ));
         }
     }
+    
+    /**
+     * Handle the Craft Contact form plugin form request.
+     */
+    public function actionContactFormSendMessage()
+    {
+        $this->requirePostRequest();
+        
+        $captcha = craft()->request->getPost('g-recaptcha-response');
+            
+        $verified = craft()->recaptcha_verify->verify($captcha);
+        
+        if ($verified) {
+            $majorVersion = AppHelper::getMajorVersion(craft()->getVersion());
+
+            if ($majorVersion === 3) {
+                $this->forward('contact-form/send', false);
+            } else if ($majorVersion === 2) {
+                $this->forward('contactForm/sendMessage', false);
+            } 
+        } else {
+            throw new Exception(Craft::t('Failed reCAPTCHA validation.'));
+        }
+    }
 }
