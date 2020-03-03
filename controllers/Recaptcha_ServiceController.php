@@ -47,9 +47,9 @@ class Recaptcha_ServiceController extends BaseController
         if ($verified) {
             $majorVersion = AppHelper::getMajorVersion(craft()->getVersion());
 
-            if ($majorVersion === 3) {
+            if ($majorVersion == 3) {
                 $this->forward('contact-form/send', false);
-            } else if ($majorVersion === 2) {
+            } else if ($majorVersion == 2) {
                 $this->forward('contactForm/sendMessage', false);
             } 
         } else {
